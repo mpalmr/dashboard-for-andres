@@ -7,14 +7,14 @@ const dir = require('../dir');
 module.exports = env => ({
   plugins: [
     new Html({
-      template: path.join(dir.assets, 'index.html'),
+      template: path.join(dir.buildAssets, 'index.html'),
       inject: 'head',
       minify: env === 'prod' ? {} : false,
       hash: env === 'prod',
     }),
     new ScriptExtHtml({ defaultAttribute: 'defer' }),
     new Favicons({
-      logo: path.join(dir.assets, 'favicon.jpg'),
+      logo: path.join(dir.buildAssets, 'favicon.jpg'),
       prefix: 'favicons-[hash]/',
       title: 'Crowdcare Dashboard',
     }),

@@ -7,6 +7,6 @@ const dir = {
   build: path.resolve('build'),
 };
 
-dir.assets = path.join(dir.src, 'assets');
+dir.buildAssets = path.join(dir.build, 'assets');
 
 module.exports = dir;

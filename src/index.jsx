@@ -9,7 +9,7 @@ const render = (Component) => {
     <AppContainer>
       <Component />
     </AppContainer>,
-  document.getElementById('cc-dashboard'));
+    document.getElementById('cc-dashboard'));
 };
 
 render(App);
