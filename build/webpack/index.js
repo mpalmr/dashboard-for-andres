@@ -5,7 +5,7 @@ const page = require('./page');
 const environments = require('./environments');
 const chunks = require('./chunks');
 
-module.exports = env => merge(
+module.exports = (env = 'dev') => merge(
   base(env),
   assets.scripts,
   assets.styles(),
