@@ -11,9 +11,9 @@ module.exports = env => ({
   },
   plugins: [
     new webpack.DefinePlugin({
-      ENV: env,
-      VERSION: pkg.version,
-      SUPPORTED_BROWSERS: pkg.browserslist,
+      ENV: JSON.stringify(env),
+      VERSION: JSON.stringify(pkg.version),
+      SUPPORTED_BROWSERS: JSON.stringify(pkg.browserslist),
     }),
   ],
 });
