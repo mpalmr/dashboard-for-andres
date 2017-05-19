@@ -18,6 +18,17 @@ module.exports = {
       'node_modules',
     ],
   },
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        use: {
+          loader: 'babel-loader',
+          options: { cacheDirectory: true },
+        },
+      },
+    ],
+  },
   plugins: [
     new Clean(path.resolve(dir.dist, '**', '*'), { root: dir.dist }),
   ],

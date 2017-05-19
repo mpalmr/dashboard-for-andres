@@ -1,3 +1,4 @@
-const ey = require('ey');
+require('babel-polyfill');
+const ey = require('./ey');
 
 console.log(ey());
