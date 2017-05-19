@@ -4,8 +4,8 @@
   "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "webpack-dev-server --env=dev",
-    "build": "webpack --env=prod",
+    "start": "webpack-dev-server --config build/webpack/index.js --env=dev",
+    "build": "webpack --config build/webpack/index.js --env=prod",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -44,5 +44,10 @@
   "browserslist": [
     "ie >= 10",
     "last 2 versions"
-  ]
+  ],
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  }
 }
