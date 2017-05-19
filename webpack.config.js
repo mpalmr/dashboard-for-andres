@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const Clean = require('clean-webpack-plugin');
 const Html = require('html-webpack-plugin');
+const ScriptExtHtml = require('script-ext-html-webpack-plugin');
 const ExtractText = require('extract-text-webpack-plugin');
 const pkg = require('./package');
 
@@ -55,6 +56,11 @@ const base = env => ({
   },
   plugins: [
     styleBundle,
+    new webpack.DefinePlugin({
+      ENV: env,
+      VERSION: pkg.version,
+      SUPPORTED_BROWSERS: pkg.browserslist,
+    }),
     new Html({
       template: path.join(dir.assets, 'index.html'),
       inject: 'head',
@@ -62,19 +68,15 @@ const base = env => ({
       hash: env === 'prod',
       cache: env !== 'prod',
     }),
-    new webpack.DefinePlugin({
-      ENV: env,
-      VERSION: pkg.version,
-      SUPPORTED_BROWSERS: pkg.browserslist,
+    new ScriptExtHtml({
+      defaultAttribute: 'defer',
     }),
   ],
 });
 
 
 const dev = () => ({
-  plugins: [
-    new webpack.HotModuleReplacementPlugin({ multistep: true }),
-  ],
+  plugins: [new webpack.HotModuleReplacementPlugin({ multistep: true })],
   devtool: 'eval-source-map',
   devServer: {
     inline: true,
@@ -95,7 +97,6 @@ const prod = () => ({
     filename: '[name].js',
   },
   plugins: [
-    new Clean(path.join(dir.dist, '**', '*'), { root: dir.dist }),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false,
@@ -112,6 +113,7 @@ const prod = () => ({
         keep_fnames: true,
       },
     }),
+    new Clean(path.join(dir.dist, '**', '*'), { root: dir.dist }),
   ],
   devtool: 'source-map',
 });
