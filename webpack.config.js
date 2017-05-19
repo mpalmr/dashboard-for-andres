@@ -4,6 +4,7 @@ const merge = require('webpack-merge');
 const Clean = require('clean-webpack-plugin');
 const Html = require('html-webpack-plugin');
 const ExtractText = require('extract-text-webpack-plugin');
+const pkg = require('./package');
 
 const dir = {
   src: path.resolve('src'),
@@ -34,9 +35,18 @@ const base = env => ({
         test: /\.scss$/,
         use: styleBundle.extract({
           use: [
-            { loader: 'css-loader' },
-            { loader: 'postcss-loader' },
-            { loader: 'sass-loader' },
+            {
+              loader: 'css-loader',
+              options: { sourceMap: true },
+            },
+            {
+              loader: 'postcss-loader',
+              options: { sourceMap: true },
+            },
+            {
+              loader: 'sass-loader',
+              options: { sourceMap: true },
+            },
           ],
           fallback: 'style-loader',
         }),
@@ -45,7 +55,18 @@ const base = env => ({
   },
   plugins: [
     styleBundle,
-    new webpack.DefinePlugin({ ENV: env }),
+    new Html({
+      template: path.join(dir.assets, 'index.html'),
+      inject: 'head',
+      minify: env === 'prod' ? {} : false,
+      hash: env === 'prod',
+      cache: env !== 'prod',
+    }),
+    new webpack.DefinePlugin({
+      ENV: env,
+      VERSION: pkg.version,
+      SUPPORTED_BROWSERS: pkg.browserslist,
+    }),
   ],
 });
 
@@ -53,7 +74,6 @@ const base = env => ({
 const dev = () => ({
   plugins: [
     new webpack.HotModuleReplacementPlugin({ multistep: true }),
-    new Html({ template: path.join(dir.assets, 'index.html') }),
   ],
   devtool: 'eval-source-map',
   devServer: {
