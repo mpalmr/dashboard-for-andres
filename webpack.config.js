@@ -106,8 +106,7 @@ const prod = () => ({
       debug: false,
     }),
     new webpack.optimize.UglifyJsPlugin({
-      beautify: false,
-      comments: false,
+      sourceMap: true,
       compress: {
         drop_console: true,
         screw_ie8: true,
