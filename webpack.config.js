@@ -45,14 +45,7 @@ const base = () => ({
       },
     ],
   },
-  plugins: [
-    styleBundle,
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        postcss: () => [autoprefixer(pkg.browserslist)],
-      },
-    }),
-  ],
+  plugins: [styleBundle],
 });
 
 
@@ -92,4 +85,4 @@ const prod = () => ({
 
 const environment = { dev, prod };
 
-module.exports = env => merge(base, environment[env](env));
+module.exports = env => merge(base(env), environment[env](env));
