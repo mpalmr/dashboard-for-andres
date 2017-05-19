@@ -12,7 +12,7 @@ const scripts = {
   },
 };
 
-const styles = (bundle = new ExtractText('[name].css')) => ({
+const styles = (bundle = new ExtractText('[name].[chunkhash].css')) => ({
   module: {
     rules: [{
       test: /\.scss$/,

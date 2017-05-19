@@ -19,14 +19,19 @@ const dev = {
 };
 
 const prod = {
+  entry: { main: 'index.js' },
   output: {
+    filename: '[name].[chunkhash].js',
     path: dir.dist,
-    filename: '[name].js',
   },
   plugins: [
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false,
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: a => {
+        console.log(a);
+        process.exit(0);
+        return a.context && a.context.indexOf('node_modules') !== -1;
+      },
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
@@ -38,6 +43,10 @@ const prod = {
         except: ['webpackJsonp'],
         keep_fnames: true,
       },
+    }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false,
     }),
     new Clean(path.join(dir.dist, '**', '*'), { root: dir.dist }),
   ],

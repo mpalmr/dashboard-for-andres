@@ -15,5 +15,6 @@ module.exports = env => ({
       VERSION: JSON.stringify(pkg.version),
       SUPPORTED_BROWSERS: JSON.stringify(pkg.browserslist),
     }),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
   ],
 });
