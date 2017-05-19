@@ -4,7 +4,6 @@ const merge = require('webpack-merge');
 const Clean = require('clean-webpack-plugin');
 const Html = require('html-webpack-plugin');
 const ExtractText = require('extract-text-webpack-plugin');
-const autoprefixer = require('autoprefixer');
 
 const dir = {
   src: path.resolve('src'),
@@ -15,13 +14,9 @@ const dir = {
 const styleBundle = new ExtractText('[name].css');
 
 
-const base = () => ({
+const base = env => ({
   context: dir.src,
   entry: 'index.js',
-  output: {
-    path: dir.dist,
-    filename: '[name].js',
-  },
   resolve: {
     modules: [dir.src, 'node_modules'],
     extensions: ['.js', '.jsx', '.json'],
@@ -45,21 +40,24 @@ const base = () => ({
       },
     ],
   },
-  plugins: [styleBundle],
+  plugins: [
+    styleBundle,
+    new webpack.DefinePlugin({ ENV: env }),
+  ],
 });
 
 
 const dev = () => ({
-  devtool: 'eval-source-map',
   plugins: [
     new webpack.HotModuleReplacementPlugin({ multistep: true }),
     new Html({ template: path.join(dir.assets, 'index.html') }),
   ],
+  devtool: 'eval-source-map',
   devServer: {
     inline: true,
     hot: true,
     historyApiFallback: true,
-    stats: 'errors-only',
+    stats: 'minimal',
   },
   watchOptions: {
     aggregateTimeout: 300,
@@ -69,17 +67,30 @@ const dev = () => ({
 
 
 const prod = () => ({
-  devtool: 'source-map',
+  output: {
+    path: dir.dist,
+    filename: '[name].js',
+  },
   plugins: [
     new Clean(path.join(dir.dist, '**', '*'), { root: dir.dist }),
+    new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false,
+    }),
     new webpack.optimize.UglifyJsPlugin({
-      compress: { drop_console: true },
+      beautify: false,
+      comments: false,
+      compress: {
+        drop_console: true,
+        screw_ie8: true,
+      },
       mangle: {
         except: ['webpackJsonp'],
-        screw_ie8: true,
+        keep_fnames: true,
       },
     }),
   ],
+  devtool: 'source-map',
 });
 
 
