@@ -26,22 +26,19 @@ const prod = {
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'vendor',
-      minChunks: a => {
-        console.log(a);
-        process.exit(0);
-        return a.context && a.context.indexOf('node_modules') !== -1;
-      },
+      names: ['vendor', 'manifest'],
     }),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
-      compress: {
-        drop_console: true,
-        screw_ie8: true,
-      },
+      beautify: false,
       mangle: {
         except: ['webpackJsonp'],
         keep_fnames: true,
+        screw_ie8: true,
+      },
+      compress: {
+        drop_console: true,
+        screw_ie8: true,
       },
     }),
     new webpack.LoaderOptionsPlugin({
