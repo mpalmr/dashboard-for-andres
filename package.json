@@ -13,7 +13,10 @@
   "license": "APL",
   "dependencies": {
     "babel-polyfill": "^6.23.0",
-    "normalize.css": "^7.0.0"
+    "normalize.css": "^7.0.0",
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "react-hot-loader": "^3.0.0-beta.7"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.1",

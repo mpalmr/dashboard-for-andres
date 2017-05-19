@@ -11,7 +11,6 @@ module.exports = env => ({
       inject: 'head',
       minify: env === 'prod' ? {} : false,
       hash: env === 'prod',
-      cache: env !== 'prod',
     }),
     new ScriptExtHtml({ defaultAttribute: 'defer' }),
     new Favicons({
