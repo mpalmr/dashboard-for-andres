@@ -1,4 +1,5 @@
 const path = require('path');
+const Clean = require('clean-webpack-plugin');
 
 const dir = {
   src: path.resolve('src'),
@@ -11,4 +12,13 @@ module.exports = {
     path: dir.dist,
     filename: '[name].js',
   },
+  resolve: {
+    modules: [
+      dir.src,
+      'node_modules',
+    ],
+  },
+  plugins: [
+    new Clean(path.resolve(dir.dist, '**', '*'), { root: dir.dist }),
+  ],
 };

@@ -1,3 +1,3 @@
-const ey = require('./ey');
+const ey = require('ey');
 
 console.log(ey());
