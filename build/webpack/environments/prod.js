@@ -3,7 +3,7 @@ const Clean = require('clean-webpack-plugin');
 const dir = require('../../dir');
 
 module.exports = {
-  entry: { main: 'index.js' },
+  entry: { main: 'index.jsx' },
   output: {
     filename: '[name].[chunkhash].js',
     path: dir.dist,
