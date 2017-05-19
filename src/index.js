@@ -1,5 +1,5 @@
 require('babel-polyfill');
-require('./base.scss');
+const styles = require('./base.scss');
 const ey = require('./ey');
 
 console.log(ey());

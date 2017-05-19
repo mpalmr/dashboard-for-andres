@@ -12,7 +12,8 @@
   "author": "",
   "license": "APL",
   "dependencies": {
-    "babel-polyfill": "^6.23.0"
+    "babel-polyfill": "^6.23.0",
+    "normalize.css": "^7.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.1",

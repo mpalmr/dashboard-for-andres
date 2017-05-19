@@ -32,11 +32,14 @@ const base = env => ({
       },
       {
         test: /\.scss$/,
-        use: styleBundle.extract([
-          'css-loader',
-          'postcss-loader',
-          'sass-loader',
-        ]),
+        use: styleBundle.extract({
+          use: [
+            { loader: 'css-loader' },
+            { loader: 'postcss-loader' },
+            { loader: 'sass-loader' },
+          ],
+          fallback: 'style-loader',
+        }),
       },
     ],
   },
