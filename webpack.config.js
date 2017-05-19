@@ -5,6 +5,7 @@ const Clean = require('clean-webpack-plugin');
 const Html = require('html-webpack-plugin');
 const ScriptExtHtml = require('script-ext-html-webpack-plugin');
 const ExtractText = require('extract-text-webpack-plugin');
+const Favicons = require('favicons-webpack-plugin');
 const pkg = require('./package');
 
 const dir = {
@@ -68,8 +69,11 @@ const base = env => ({
       hash: env === 'prod',
       cache: env !== 'prod',
     }),
-    new ScriptExtHtml({
-      defaultAttribute: 'defer',
+    new ScriptExtHtml({ defaultAttribute: 'defer' }),
+    new Favicons({
+      logo: path.join(dir.assets, 'favicon.jpg'),
+      prefix: 'favicons-[hash]/',
+      title: 'Crowdcare Dashboard',
     }),
   ],
 });

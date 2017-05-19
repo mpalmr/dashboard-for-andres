@@ -1,5 +1,5 @@
 {
-  "name": "dashboard",
+  "name": "crowdcare-dashboard",
   "version": "0.0.0",
   "description": "",
   "main": "src/index.js",
@@ -30,6 +30,7 @@
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.0.1",
     "extract-text-webpack-plugin": "^2.1.0",
+    "favicons-webpack-plugin": "0.0.7",
     "html-webpack-plugin": "^2.28.0",
     "node-sass": "^4.5.3",
     "postcss-loader": "^2.0.5",
